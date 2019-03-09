@@ -141,6 +141,7 @@ if ($hash === $hashstr) {
         $script_cmd=$jsonset->script->command;
         //获取命令参数
         $script_arg=$jsonset->script->arg;
+        $cwd = null;
         //启用模版
         if($script_temple){
             //渲染模版
@@ -149,6 +150,7 @@ if ($hash === $hashstr) {
             if(!strstr($script_cmd,DIRECTORY_SEPARATOR)){
                 $script_cmd = $cmdpath.$script_cmd;
                 $log->addInfo('sciript:'.$script_cmd);
+                $cwd = $cmdpath;
             }
             //写入渲染的脚本
             $log->addInfo('sciript begin write .');
@@ -156,7 +158,16 @@ if ($hash === $hashstr) {
             $log->addInfo('sciript write end.');
         }
         //执行自定义的命令
-        $command = new Command($script_cmd);
+        if(is_null($cwd)){
+            $command = new Command($script_cmd);
+        }else{
+            $command = new Command(
+                array(
+                    'command' => $script_cmd,
+                    'procCwd' =>$cwd
+                )
+            );
+        }
         $log->addInfo('run cmd.'.$script_cmd);
         $command->addArg($script_arg, null, false);
         $log->addInfo('begin run command.'.$script_cmd);

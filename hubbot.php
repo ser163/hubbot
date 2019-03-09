@@ -157,7 +157,9 @@ if ($hash === $hashstr) {
         }
         //执行自定义的命令
         $command = new Command($script_cmd);
+        $log->addInfo('run cmd.'.$script_cmd);
         $command->addArg($script_arg, null, false);
+        $log->addInfo('begin run command.'.$script_cmd);
         if ($command->execute()) {
             $log->addInfo('command run');
             echo $command->getOutput();

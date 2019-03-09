@@ -122,16 +122,20 @@ if ($hash === $hashstr) {
         if($script_temple){
             //渲染模版
             $render_str=render($templatepath,$script_tpl_file,$jsonstr);
+            $log->addInfo('render:'.$render_str);
             if(!strstr($script_cmd,DIRECTORY_SEPARATOR)){
                 $script_cmd = $cmdpath.$script_cmd;
+                $log->addInfo('sciript:'.$script_cmd);
             }
             //写入渲染的脚本
             write_cmd($script_cmd,$render_str);
+            $log->addInfo('sciript write over.');
         }
         //执行自定义的命令
         $command = new Command($script_cmd);
         $command->addArg($script_arg, null, false);
         if ($command->execute()) {
+            $log->addInfo('command run');
             echo $command->getOutput();
         } else {
             echo $command->getError();

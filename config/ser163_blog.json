@@ -1,0 +1,8 @@
+{
+  "script":{
+    "temple":true,
+    "tpl":"test.twh",
+    "command":"test.sh",
+    "arg":"This Test Command"
+  }
+}

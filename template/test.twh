@@ -1,0 +1,6 @@
+{% set repname = github["repository"]["full_name"] %}
+@echo off
+echo %1
+echo %2
+echo {{ repname }}
+echo {{ github["repository"]["node_id"] }}

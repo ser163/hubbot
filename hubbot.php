@@ -103,7 +103,7 @@ if ($hash === $hashstr) {
         }
     }else{
         //沉默模式下,本机不向外界通讯,自己单独执行命令
-        $jsonfile=$configpath.str_repeat('/','_',$repo_name).'.json';
+        $jsonfile=$configpath.str_replace('/','_',$repo_name).'.json';
         if(!file_exists($jsonfile)){
             $log->addError($jsonfile.' File Not Found:');
             echo "Error:".$jsonfile.' File Not Found';

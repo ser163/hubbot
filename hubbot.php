@@ -19,15 +19,37 @@ $logfile=env('logfile','bot.log');
 //config目录路径
 $def_config_dir=dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
 $configpath=env('config_dir',$def_config_dir);
-
+//检查目录是否可以读写
+if(!file_exists($configpath)){
+    $log->addError($configpath.' Directory does not exist');
+    die($configpath.' Directory does not exist');
+}
+if(!is_readable($configpath)){
+    $log->addError($configpath.' This directory requires read permissions');
+    die($configpath.' This directory requires read permissions');
+}
 //template目录路径
 $def_template_dir=dirname(__FILE__).DIRECTORY_SEPARATOR.'template'.DIRECTORY_SEPARATOR;
 $templatepath=env('template_dir',$def_template_dir);
 
-//cmd目录路径
+if(!file_exists($templatepath)){
+    $log->addError($templatepath.' Directory does not exist');
+    die($templatepath.' Directory does not exist');
+}
+if(!is_readable($templatepath)){
+    $log->addError($templatepath.' This directory requires read permissions');
+    die($templatepath.' This directory requires read permissions');
+}
+
+//cmd目录路径 此目录要有可写权限
 $def_cmd_dir=dirname(__FILE__).DIRECTORY_SEPARATOR.'cmd'.DIRECTORY_SEPARATOR;
 $cmdpath=env('cmd_dir',$def_cmd_dir);
 
+//检查cmd目录权限
+if(!is_writable($cmdpath) ){
+    $log->addError($cmdpath.' No writable permissions');
+    die($cmdpath.' No writable permissions');
+}
 // create a log channel
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler($logfile, Logger::INFO));
@@ -128,8 +150,9 @@ if ($hash === $hashstr) {
                 $log->addInfo('sciript:'.$script_cmd);
             }
             //写入渲染的脚本
+            $log->addInfo('sciript begin write .');
             write_cmd($script_cmd,$render_str);
-            $log->addInfo('sciript write over.');
+            $log->addInfo('sciript write end.');
         }
         //执行自定义的命令
         $command = new Command($script_cmd);

@@ -195,7 +195,7 @@ function render($tplpath,$tplfile,$val){
  */
 
 function write_cmd($filename,$val){
-    $cmdfilefd = fopen($filename, "w") or die("Cannot write to file!");
+    $cmdfilefd = fopen($filename, "w") or die($filename." Cannot write to file!");
     fwrite($cmdfilefd,$val);
     fclose($cmdfilefd);
     chmod($filename,0755);

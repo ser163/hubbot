@@ -1,0 +1,6 @@
+.env
+/.idea
+/.vscode
+/vendor/
+node_modules/
+bot.log

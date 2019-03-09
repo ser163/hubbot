@@ -13,13 +13,12 @@ use Monolog\Handler\StreamHandler;
 use mikehaertl\shellcommand\Command;
 
 // create a log channel
+$logfile=env('logfile','bot.log');
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler($logfile, Logger::INFO));
 
 //获取配置文件
 $secret_key=env('secret_key','1522');
-$logfile=env('logfile','bot.log');
-
 //config目录路径
 $def_config_dir=dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
 $configpath=env('config_dir',$def_config_dir);

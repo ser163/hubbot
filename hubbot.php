@@ -12,6 +12,10 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use mikehaertl\shellcommand\Command;
 
+// create a log channel
+$log = new Logger('name');
+$log->pushHandler(new StreamHandler($logfile, Logger::INFO));
+
 //获取配置文件
 $secret_key=env('secret_key','1522');
 $logfile=env('logfile','bot.log');
@@ -50,9 +54,7 @@ if(!is_writable($cmdpath) ){
     $log->addError($cmdpath.' No writable permissions');
     die($cmdpath.' No writable permissions');
 }
-// create a log channel
-$log = new Logger('name');
-$log->pushHandler(new StreamHandler($logfile, Logger::INFO));
+
 //获取github push过来的json数据
 $poststr = file_get_contents('php://input');
 $jsonstr = json_decode($poststr, true);

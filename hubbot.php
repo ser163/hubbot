@@ -73,10 +73,11 @@ if(!is_writable($cmdpath) ){
 $mine = $_SERVER['CONTENT_TYPE'];
 $log->addInfo('mine type:'.$mine);
 //获取github push过来的json数据
+$fullpost = file_get_contents('php://input');
 if($mine=="application/x-www-form-urlencoded"){
-    $poststr = json_encode($_POST["payload"]);
+    $poststr = rawurldecode($_POST["payload"]);
 }else{
-    $poststr = file_get_contents('php://input');
+    $poststr = $fullpost;
 }
 $jsonstr = json_decode($poststr, true);
 if (empty($jsonstr)){
@@ -96,7 +97,7 @@ if (!$git_secret) {
 }
 //获取签名
 list($algo, $hash) = explode('=', $git_secret, 2);
-$hashstr = hash_hmac($algo, $poststr, $secret_key);
+$hashstr = hash_hmac($algo, $fullpost, $secret_key);
 $log->addInfo('hashstr:'.$hashstr);
 $log->addInfo('hash:'.$hash);
 

@@ -70,9 +70,14 @@ if(!is_writable($cmdpath) ){
     $log->addError($cmdpath.' No writable permissions');
     die($cmdpath.' No writable permissions');
 }
-
+$mine = $_SERVER['content-type'];
+$log->addInfo('mine type:'.$mine);
 //获取github push过来的json数据
-$poststr = file_get_contents('php://input');
+if($mine=="application/x-www-form-urlencoded"){
+    $poststr=json_decode($_POST["payload"]);
+}else{
+    $poststr = file_get_contents('php://input');
+}
 $jsonstr = json_decode($poststr, true);
 $log->addInfo('------------------------------------------------');
 $log->addInfo(json_encode($jsonstr));

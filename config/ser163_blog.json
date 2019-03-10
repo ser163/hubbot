@@ -3,6 +3,6 @@
     "temple":true,
     "tpl":"test.twh",
     "command":"test.sh",
-    "arg":"This Test Command"
+    "arg":"arg1 arg2 arg3"
   }
 }

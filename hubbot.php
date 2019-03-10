@@ -11,7 +11,24 @@ require 'comm.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use mikehaertl\shellcommand\Command;
-
+/*
+ *  info message
+ */
+if (isGet()){
+    echo "<H1 style='text-align: center'>HUB Bot</H1>";
+    echo '<hr style="height:1px;margin-top:30px;border:none;border-top:2px ridge #dfe2e4;" \/>';
+    echo "<div style='text-align: center;margin-top:30px;'>
+                  <span>
+                        <a style='text-decoration:none;color: #2f2f2f;' href='https://github.com/ser163/hubbot'>GitHUB</a>
+                  </span>
+            <div>";
+    echo "<div style='text-align: center;margin-top:2px;'>
+                  <span>
+                        <a style='text-decoration:none;color: #2f2f2f;' href='https://www.ser163.cn'>ser163</a>
+                  </span>
+            <div>";
+    exit();
+}
 // create a log channel
 $logfile=env('logfile','bot.log');
 $log = new Logger('name');

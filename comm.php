@@ -13,6 +13,10 @@ $dotenv->load();
 define ("IV",getenv('iv'));
 define ('CIPHER',getenv('cipher'));
 
+function isGet(){
+    return $_SERVER['REQUEST_METHOD'] == 'GET' ? true : false;
+}
+
 /**
  * Return the length of the given string.
  *

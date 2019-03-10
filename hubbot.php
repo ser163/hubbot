@@ -74,11 +74,15 @@ $mine = $_SERVER['CONTENT_TYPE'];
 $log->addInfo('mine type:'.$mine);
 //获取github push过来的json数据
 if($mine=="application/x-www-form-urlencoded"){
-    $poststr=json_decode($_POST["payload"]);
+    $poststr = json_encode($_POST["payload"]);
 }else{
     $poststr = file_get_contents('php://input');
 }
 $jsonstr = json_decode($poststr, true);
+if (empty($jsonstr)){
+    $log->addInfo('Json String Abnormal data');
+    exit();
+}
 $log->addInfo('------------------------------------------------');
 $log->addInfo(json_encode($jsonstr));
 //获取资源库名字

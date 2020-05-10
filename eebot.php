@@ -90,13 +90,13 @@ $log->addInfo(json_encode($jsonstr));
 $repo_name=$jsonstr['repository']['full_name'];
 $log->addInfo('repo_name:'.$repo_name);
 // 判断是否为gitee网站
-$userAgent = $_SERVER['User-Agent'];
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
 $log->addInfo('agent为:'.$userAgent);
 if ($userAgent != 'git-oschina-hook' ) {
     return http_response_code(403);
 }
 //获取加密
-$git_secret = $_SERVER['X-Gitee-Token'];
+$git_secret = $_SERVER['HTTP_X_GITEE_TOKEN'];
 $log->addInfo('hash串为:'.$git_secret);
 if (!$git_secret) {
     return http_response_code(403);

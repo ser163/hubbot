@@ -197,7 +197,6 @@ function render($tplpath,$tplfile,$val){
 /*
  *  写入文件,并设置权限
  */
-
 function write_cmd($filename,$val){
     $cmdfilefd = fopen($filename, "w") or die($filename." Cannot write to file!");
     fwrite($cmdfilefd,$val);
